@@ -37,7 +37,7 @@ This Receipt Processor API is a Node.js application, which processes receipts an
 
 ---
 
-### Rules for Awarding Points
+## Rules for Awarding Points
 
 - Alphanumeric characters in retailer name: 1 point each.
 - Total is a round dollar amount: 50 points.
