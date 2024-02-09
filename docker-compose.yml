@@ -1,6 +1,6 @@
 version: "3"
 services:
   app:
-    image: my-node-app
+    image: clee4037/receipt-processor
     ports:
       - 8080:8080
