@@ -60,7 +60,6 @@ const getReceiptById = (req, res) => {
 const getAllPoints = (req, res) => {
   try {
     const ids = Object.keys(receipts);
-    console.log("1", ids);
     if (ids.length > 0) {
       const allPoints = ids.reduce((accumulator, id) => {
         accumulator[id] = receipts[id].points;
