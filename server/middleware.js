@@ -3,11 +3,11 @@ const countAlphanumericChars = (retailerString) => {
 };
 
 const isRoundDoller = (total) => {
-  return Number.isInteger(total) ? 1 : 0;
+  return parseFloat(total) % 1 === 0 ? 1 : 0;
 };
 
 const isMultipleOfQuarter = (total) => {
-  return total % 0.25 === 0 ? 1 : 0;
+  return parseFloat(total) % 0.25 === 0 ? 1 : 0;
 };
 
 const countEveryTwoItems = (items) => {
@@ -15,27 +15,24 @@ const countEveryTwoItems = (items) => {
 };
 
 const itemDescriptionPoints = (items) => {
-  let totalPoints = 0;
-  items.forEach((item) => {
+  return items.reduce((accumulator, item) => {
     const trimmedLength = item.shortDescription.trim().length;
-    totalPoints += trimmedLength % 3 === 0 ? Math.ceiling(item.price * 0.2) : 0;
-  });
-  return totalPoints;
+    const points =
+      trimmedLength % 3 === 0 ? Math.ceil(parseFloat(item.price) * 0.2) : 0;
+    return accumulator + points;
+  }, 0);
 };
 
 const isOddDay = (dateString) => {
-  const day = parseInt(dateString.split("-")[2], 10);
+  const day = parseInt(dateString.split("-")[2]);
   return day % 2 === 1 ? 1 : 0;
 };
 
 const isBetweenTimes = (time, startHour = 14, endHour = 16) => {
   const splitTime = time.split(":");
-  const hour = splitTime[0];
-  const min = splitTime[1];
-  if ((hour === startHour && min > 0) || hour === endHour - 1) {
-    return 10;
-  }
-  return 0;
+  const hour = parseInt(splitTime[0]);
+  const min = parseInt(splitTime[1]);
+  return (hour === startHour && min > 0) || hour === endHour - 1 ? 1 : 0;
 };
 
 const calculatePoints = (receipt) => {
@@ -48,4 +45,15 @@ const calculatePoints = (receipt) => {
     6 * isOddDay(receipt.purchaseDate) +
     10 * isBetweenTimes(receipt.purchaseTime, 14, 16)
   );
+};
+
+module.exports = {
+  calculatePoints,
+  countAlphanumericChars,
+  isRoundDoller,
+  isMultipleOfQuarter,
+  countEveryTwoItems,
+  itemDescriptionPoints,
+  isOddDay,
+  isBetweenTimes,
 };
